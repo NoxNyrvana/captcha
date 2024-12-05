@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blindtest CAPTCHA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        audio {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Blindtest CAPTCHA</h1>
+    <audio id="audioPlayer" controls style="display: none;">
+        <source id="audioSource" src="" type="audio/mp3">
+        Votre navigateur ne supporte pas le format audio.
+    </audio>
+    <input type="text" id="userAnswer" placeholder="Entrez le nom de la chanson">
+    <button onclick="playAudio()">Écouter la musique</button>
+    <button onclick="checkAnswer()">Valider</button>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+    const songs = [
+        { answer: "Faded", file: "file2.mp3.mp3" },
+        { answer: "Toxic", file: "file3.mp3.mp3" },
+        { answer: "I Will Survive", file: "file4.mp3.mp3" },
+        { answer: "Sweet Child O' Mine", file: "file5.mp3.mp3" },
+        { answer: "Take Me to Church", file: "file6.mp3.mp3" },
+        { answer: "I Want to Hold Your Hand", file: "file7.mp3.mp3" },
+        { answer: "All of Me", file: "file8.mp3.mp3" },
+        { answer: "Don't Stop Believin'", file: "file9.mp3.mp3" },
+        { answer: "Roar", file: "file10.mp3.mp3" },
+        { answer: "Bad Romance", file: "file11.mp3.mp3" },
+        { answer: "Smells Like Teen Spirit", file: "file14.mp3.mp3" },
+        { answer: "Counting Stars", file: "file15.mp3.mp3" },
+        { answer: "Happy", file: "file16.mp3.mp3" },
+        { answer: "Gangnam Style", file: "file17.mp3.mp3" },
+        { answer: "Bohemian Rhapsody", file: "file18.mp3.mp3" },
+        { answer: "Take a Bow", file: "file19.mp3.mp3" },
+        { answer: "Chandelier", file: "file20.mp3.mp3" },
+        { answer: "Shape of My Heart", file: "file21.mp3.mp3" },
+        { answer: "I Will Always Love You", file: "file23.mp3.mp3" },
+        { answer: "Shape of You", file: "file25.mp3.mp3" }
+    ];
+
+    const currentSong = songs[Math.floor(Math.random() * songs.length)];
+
+    function playAudio() {
+        const audioPlayer = document.getElementById("audioPlayer");
+        const audioSource = document.getElementById("audioSource");
+        audioSource.src = currentSong.file;
+        audioPlayer.load();
+        audioPlayer.style.display = "inline";
+        audioPlayer.play();
+    }
+
+    function checkAnswer() {
+        const userAnswer = document.getElementById("userAnswer").value.trim();
+        const messageElement = document.getElementById("message");
+
+        if (userAnswer.toLowerCase() === currentSong.answer.toLowerCase()) {
+            messageElement.style.color = "green";
+            messageElement.textContent = "Bravo ! Vous avez prouvé que vous êtes humain.";
+        } else {
+            messageElement.style.color = "red";
+            messageElement.textContent = "Incorrect. Essayez encore !";
+        }
+    }
+</script>
+
+</body>
+</html>
